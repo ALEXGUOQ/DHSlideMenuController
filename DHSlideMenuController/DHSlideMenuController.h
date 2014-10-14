@@ -14,6 +14,7 @@ typedef void(^MainViewAnimationBlock) (UIView *mainView, CGRect orginFrame, CGFl
 
 @property (assign, nonatomic) BOOL needSwipeShowMenu;
 @property (assign, nonatomic) BOOL needShowBoundsShadow;
+@property (assign, nonatomic) BOOL needPanFromViewBounds;
 
 @property (strong, nonatomic) UIViewController *mainViewController;
 @property (strong, nonatomic) UIViewController *leftViewController;

@@ -137,6 +137,10 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer == panGestureRecognizer) {
+        //控制是否从视图的边缘触发弹出侧边试图
+        if (_needPanFromViewBounds && [gestureRecognizer locationInView:currentView].x >= 40 && [gestureRecognizer locationInView:currentView].x < currentView.frame.size.width - 40) {
+            return NO;
+        }
         UIPanGestureRecognizer *panGesture = (UIPanGestureRecognizer *)gestureRecognizer;
         CGPoint translation = [panGesture translationInView:baseView];
         if ([panGesture velocityInView:baseView].x < 600 && ABS(translation.x) / ABS(translation.y) > 1) {
@@ -206,11 +210,13 @@
     }
 }
 
+//重写此方法可以自定义mainViewController的出入动画
 - (void)layoutCurrentViewWithOffset:(CGFloat)xOffset {
     if (_needShowBoundsShadow) {
         currentView.layer.shadowPath = [UIBezierPath bezierPathWithRect:currentView.bounds].CGPath;
     }
     if (_mainViewAnimationBlock) {
+        //如果有自定义的动画,则执行自定义动画
         _mainViewAnimationBlock(currentView, baseView.bounds, xOffset);
         return;
     }
