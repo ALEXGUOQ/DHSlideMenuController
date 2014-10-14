@@ -151,6 +151,21 @@
     return YES;
 }
 
+//拦截下级视图的手势
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+//手势会传递到下级视图
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+//    return YES;
+//}
+
+//手势派发给下级视图
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRequireFailureOfGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+//    return YES;
+//}
+
 - (void)pan:(UIPanGestureRecognizer *)pan {
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
         startPanPoint = currentView.frame.origin;
