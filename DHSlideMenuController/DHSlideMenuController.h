@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 typedef void(^MainViewAnimationBlock) (UIView *mainView, CGRect orginFrame, CGFloat xOffset);
-
+typedef NS_ENUM(NSInteger, SlideAnimationType) {
+    SlideAnimationTypeScale,
+    SlideAnimationTypeMove
+};
 @interface DHSlideMenuController : UIViewController
 
 @property (assign, nonatomic) BOOL needSwipeShowMenu;
@@ -25,7 +28,10 @@ typedef void(^MainViewAnimationBlock) (UIView *mainView, CGRect orginFrame, CGFl
 @property (assign, nonatomic) NSTimeInterval animationDuration;
 
 @property (copy, nonatomic) MainViewAnimationBlock mainViewAnimationBlock;
+@property (assign, nonatomic) SlideAnimationType animationType;
 
++ (instancetype)sharedInstance;
+- (instancetype)initWithMainViewController:(UIViewController *)main leftViewController:(UIViewController *)left rightViewController:(UIViewController *)right animationBlock:(MainViewAnimationBlock)block;
 - (void)showLeftViewController:(BOOL)animated;
 - (void)showRightViewController:(BOOL)animated;
 - (void)hideSlideMenuViewController:(BOOL)animated;

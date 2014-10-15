@@ -26,6 +26,15 @@
 
 @implementation DHSlideMenuController
 
++ (instancetype)sharedInstance {
+    static DHSlideMenuController *sharedSMC;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedSMC = [[self alloc] init];
+    });
+    return sharedSMC;
+}
+
 - (instancetype)init {
     return [self initWithNibName:nil bundle:nil];
 }
@@ -43,6 +52,16 @@
         coverButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         [coverButton addTarget:self action:@selector(hideSideViewController) forControlEvents:UIControlEventTouchUpInside];
         isInited = YES;
+    }
+    return self;
+}
+
+- (instancetype)initWithMainViewController:(UIViewController *)main leftViewController:(UIViewController *)left rightViewController:(UIViewController *)right animationBlock:(MainViewAnimationBlock)block {
+    if (self = [self init]) {
+        _mainViewController = main;
+        _leftViewController = left;
+        _rightViewController = right;
+        _mainViewAnimationBlock = block;
     }
     return self;
 }
